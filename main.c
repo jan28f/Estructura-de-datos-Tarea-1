@@ -125,12 +125,21 @@ void registrar_paciente(List *pacientes)
   printf("Ingrese el síntoma del paciente: ");
   scanf("%50[^\n]s", temp->sintoma);
 
-  printf("Prioridad asignada por defecto: BAJA\n");
+  printf("Prioridad asignada por defecto: BAJA\n\n");
   strcpy(temp->prioridad, "BAJA");
 
   paciente *aux = (paciente *)list_first(pacientes);
+  while (aux != NULL)
+  {
+    if (strcmp(temp->nombre, aux->nombre) == 0)
+    {
+      printf("El paciente ya se encuentra registrado\n");
+      free(temp);
+      return;
+    }
+  }
   list_pushBack(pacientes, temp);
-  printf("\n***Paciente registrado con exito***\n");
+  printf("***Paciente registrado con exito***\n");
 }
 
 void asignar_prioridad(List *pacientes)
